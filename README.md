@@ -1,0 +1,1 @@
+# lectura_LM35-con_AWS
