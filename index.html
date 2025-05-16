@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sensor de Temperatura</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 2rem;
+      background-color: #f3f3f3;
+    }
+    .card {
+      background-color: white;
+      padding: 2rem;
+      margin: auto;
+      border-radius: 1rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 300px;
+    }
+    .temp {
+      font-size: 3rem;
+      color: #007acc;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Temperatura actual</h1>
+    <div class="temp" id="temperatura">-- °C</div>
+    <button onclick="obtenerTemperatura()">Actualizar</button>
+  </div>
+
+  <script>
+    const apiUrl = "https://02sjh3e6o8.execute-api.us-east-2.amazonaws.com/prod";
+
+    async function obtenerTemperatura() {
+      try {
+        const respuesta = await fetch(apiUrl);
+        const datos = await respuesta.json();
+        document.getElementById("temperatura").textContent = `${datos.temperatura} °C`;
+      } catch (error) {
+        console.error("Error al obtener la temperatura:", error);
+        document.getElementById("temperatura").textContent = "Error";
+      }
+    }
+
+    // Obtener temperatura al cargar la página
+    obtenerTemperatura();
+  </script>
+</body>
+</html>
+
